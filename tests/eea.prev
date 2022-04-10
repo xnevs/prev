@@ -1,0 +1,62 @@
+typ eea_result: rec {
+  gcd: integer,
+  ps: integer,
+  s: integer,
+  pt: integer,
+  t: integer
+};
+
+fun eea(a: integer, b: integer, r: ^eea_result): integer = (
+  {ps = 1}, {s = 0},
+  {pt = 0}, {t = 1},
+  {while b > 0: (
+    {q = a / b},
+    {tmp =  a}, { a = b}, {b = tmp - q*b},
+    {tmp = ps}, {ps = s}, {s = tmp - q*s},
+    {tmp = pt}, {pt = t}, {t = tmp - q*t} )},
+    
+  {r^.gcd = a},
+  {r^.ps = ps},
+  {r^.s = s},
+  {r^.pt = pt},
+  {r^.t = t},
+  
+  a
+){where
+    var q: integer;
+    var ps: integer;
+    var s: integer;
+    var pt: integer;
+    var t: integer;
+    var tmp: integer};
+
+fun main(argc: integer): integer = (
+  {a = get_int(0)},
+  {b = get_int(0)},
+  
+  put_nl(1),
+  
+  eea(a, b, ^r),
+  
+  put_str('gcd('),put_int(a),put_str(','),put_int(b),put_str(') = '),
+  put_int(r.gcd),
+  put_nl(2),
+  
+  put_str('t = '),
+  put_int(r.t),
+  put_nl(1),
+  put_str('s = '),
+  put_int(r.s),
+  put_nl(2),
+  
+  put_str('pt = '),
+  put_int(r.pt),
+  put_nl(1),
+  put_str('ps = '),
+  put_int(r.ps),
+  put_nl(1),
+  
+  0
+) {where var a: integer;
+         var b: integer;
+         var r: eea_result}

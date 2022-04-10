@@ -1,0 +1,14 @@
+
+fun fib(n: integer): string = 'narobe';
+
+fun main(argc: integer): integer = (
+  {n = get_int(0)},
+  put_int(fib(n)),
+  put_nl(1)
+) {where var n: integer;
+         fun fib(n: integer): integer = (
+           {if n > 1 then
+             {n = fib(n-1) + fib(n-2)}},
+           n
+         )
+  }

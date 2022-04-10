@@ -1,0 +1,48 @@
+
+fun strlen(s: string): integer = (
+  {i = 0},
+  {while get_char_at(s, i) != 0:
+    {i = i+1}},
+  i
+) {where var i: integer};
+
+fun remove_nl(s: string): string = (
+  {r = malloc(strlen(s))},
+  {for i = 0, strlen(s), 1:
+    {if get_char_at(s, i) == 10 then
+      put_char_at(r,0,i)
+     else
+      put_char_at(r, get_char_at(s,i),i)}},
+  r
+) {where var r: string;
+         var i: integer};
+
+fun strcat(s1: string, s2: string): string = (
+  {s = malloc(strlen(s1)+strlen(s2))},
+  {i = 0},
+  {c = get_char_at(s1,i)},
+  {while c != 0: (
+    put_char_at(s,c,i),
+    {i = i + 1},
+    {c = get_char_at(s1,i)})},
+  {j = 0},
+  {c = get_char_at(s2,j)},
+  {while c != 0: (
+    put_char_at(s,c,i+j),
+    {j = j + 1},
+    {c = get_char_at(s2,j)})},
+  s
+) {where var s: string;
+         var i: integer;
+         var j: integer;
+         var c: integer};
+
+fun main(argc: integer): integer = (
+  {s1 = remove_nl(get_str(''))},
+  {s2 = remove_nl(get_str(''))},
+  put_int(strlen(s1)),
+  put_nl(1),
+  put_str(strcat(s1, s2)),
+  put_nl(1)
+) {where var s1: string;
+         var s2: string}

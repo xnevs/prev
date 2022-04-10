@@ -1,0 +1,16 @@
+var a: integer;
+var b: integer;
+var result: integer;
+
+fun main(argc: integer):integer = (
+  {a = get_int(0)},
+  {b = get_int(0)},
+  {result = gcd(a,b)},
+  put_int(result),
+  put_nl(1),
+  0)
+  {where
+    fun gcd(x: integer, y: integer): integer = (
+      {if y != 0 then
+        {x = gcd(y, x % y)}},
+      x)}
